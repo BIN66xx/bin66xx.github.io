@@ -1,1 +1,113 @@
-<!DOCTYPE html> <html lang="zh-CN"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>钟妙柔的生日祝福</title> <style> body { margin: 0; overflow: hidden; background: #000; height: 100vh; } #roseContainer { position: relative; width: 100%; height: 100%; } .rose { position: absolute; background-size: contain; background-repeat: no-repeat; opacity: 0; } .text { position: absolute; color: #fff; font-size: 48px; opacity: 0; text-align: center; width: 100%; top: 50%; transform: translateY(-50%); font-family: 'Arial Rounded MT Bold', sans-serif; text-shadow: 0 2px 10px rgba(255,255,255,0.3); } #cake { position: absolute; opacity: 0; width: 70%; max-width: 300px; left: 50%; top: 50%; transform: translate(-50%, -50%); } #candleFlame { position: absolute; width: 15px; height: 25px; background: #ff9d00; border-radius: 50% 50% 30% 30%; box-shadow: 0 0 15px #ffeb3b; opacity: 0; } #tip { position: absolute; bottom: 30px; color: #fff; opacity: 0; text-align: center; width: 100%; font-size: 18px; font-family: sans-serif; } </style> </head> <body> <div id="roseContainer"></div> <div class="text" id="name">钟妙柔</div> <div class="text" id="wish">祝你生日快乐！</div> < img src="https://img95.699pic.com/xsj/0t/3k/5i.jpg!/fh/300" id="cake"> <!-- 蛋糕图片 --> <div id="candleFlame"></div> <div id="tip">点击屏幕即可熄灭蜡烛</div> <script> // 玫瑰生成函数 function createRoses() { const container = document.getElementById('roseContainer'); const count = 50; // 玫瑰数量 const roseImg = 'https://img2.baidu.com/it/u=3431806495,3568039165&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'; // 玫瑰图片链接 for (let i = 0; i < count; i++) { const rose = document.createElement('div'); rose.className = 'rose'; rose.style.backgroundImage = `url(${roseImg})`; rose.style.width = `${Math.random() * 60 + 30}px`; // 随机大小 rose.style.height = `${Math.random() * 60 + 30}px`; rose.style.left = `${Math.random() * 100}%`; // 随机位置 rose.style.top = `${Math.random() * 100}%`; rose.style.transform = `rotate(${Math.random() * 360}deg)`; // 随机旋转 container.appe
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft 简介</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #27ae60;
+            text-align: center;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        h3 {
+            color: #3498db;
+        }
+        strong {
+            color: #e74c3c;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .note {
+            background-color: #fffacd;
+            border-left: 4px solid #f39c12;
+            padding: 10px 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>欢迎来到方块世界！</h1>
+        
+        <p><strong>Minecraft</strong> 是一款由Mojang Studios开发的沙盒游戏，自2011年正式发布以来，已成为有史以来最畅销的电子游戏之一。在这个由方块构成的3D世界中，玩家可以自由探索、采集资源、制作工具、建造建筑物，还能与其他玩家合作或对抗。</p>
+
+        <h2>游戏模式</h2>
+        
+        <h3>生存模式</h3>
+        <p>在这个模式下，玩家需要管理饥饿度和生命值，通过收集资源、建造庇护所来抵御怪物，并在夜晚来临前确保安全。随着游戏进行，玩家可以探索更广阔的世界，寻找稀有资源，最终挑战末影龙。</p>
+
+        <h3>创造模式</h3>
+        <p>创造模式给予玩家无限的资源和飞行能力，让创造力自由飞翔！没有生存压力，玩家可以专注于建造令人惊叹的建筑、复杂的红石机械，或是重现现实世界的地标。</p>
+
+        <h2>世界生成</h2>
+        <p>Minecraft的世界是程序化生成的，几乎无限广阔。从茂密的森林、广阔的沙漠，到神秘的洞穴系统和巍峨的山脉，每个生物群系都有其独特的特点和资源。</p>
+        
+        <ul>
+            <li><strong>地形特征</strong>：山脉、峡谷、平原、海洋、河流</li>
+            <li><strong>生物群系</strong>：森林、沙漠、热带雨林、雪山、草原、沼泽</li>
+            <li><strong>特殊结构</strong>：村庄、城堡、地牢、末地传送门</li>
+        </ul>
+
+        <h2>红石系统</h2>
+        <p>红石是Minecraft中独特的机关系统，允许玩家创建复杂的机械装置。通过红石粉、红石火把、比较器、中继器等元件，玩家可以建造：</p>
+        
+        <ul>
+            <li>自动农场</li>
+            <li>陷阱门</li>
+            <li>电梯</li>
+            <li>计算器</li>
+            <li>音乐装置</li>
+        </ul>
+
+        <h2>社区与模组</h2>
+        <p>Minecraft拥有庞大而活跃的社区，玩家们分享建筑作品、模组、材质包和游戏玩法。</p>
+
+        <h3>热门模组推荐</h3>
+        <ul>
+            <li><strong>工业2</strong>：添加各种机械和自动化设备</li>
+            <li><strong>建筑工艺</strong>：提供高级建筑材料和工具</li>
+            <li><strong>暮色森林</strong>：添加新的维度与生物</li>
+            <li><strong>Tinkers' Construct</strong>：革新金属精炼系统</li>
+        </ul>
+
+        <div class="note">
+            <h2>小提示</h2>
+            <ul>
+                <li>在挖掘时，总是要考虑方块的另一侧是什么</li>
+                <li>保持食物充足，避免饥饿</li>
+                <li>谨慎使用TNT，它可能会摧毁你辛苦建造的作品</li>
+                <li>探索洞穴时记得带上火把和武器</li>
+                <li>加入服务器，与其他玩家一起创造奇迹</li>
+            </ul>
+        </div>
+
+        <p><em>注：本页面仅为Minecraft基础介绍，游戏内容会随版本更新而变化。</em></p>
+    </div>
+</body>
+</html>
