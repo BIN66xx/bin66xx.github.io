@@ -3,58 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>给钟妙柔的生日祝福</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>钟妙柔的生日祝福</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            height: 100vh;
+        }
+        #roseContainer {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .rose {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+        .text {
+            position: absolute;
+            color: #fff;
+            font-size: 48px;
+            opacity: 0;
+            text-align: center;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Arial Rounded MT Bold', sans-serif;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.3);
+            transition: opacity 2s;
+        }
+        #cake {
+            position: absolute;
+            opacity: 0;
+            width: 70%;
+            max-width: 300px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 2s;
+        }
+        #candleFlame {
+            position: absolute;
+            width: 15px;
+            height: 25px;
+            background: #ff9d00;
+            border-radius: 50% 50% 30% 30%;
+            box-shadow: 0 0 15px #ffeb3b;
+            opacity: 0;
+            transition: opacity 1s;
+            z-index: 10;
+        }
+        #tip {
+            position: absolute;
+            bottom: 30px;
+            color: #fff;
+            opacity: 0;
+            text-align: center;
+            width: 100%;
+            font-size: 18px;
+            font-family: sans-serif;
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="roseContainer"></div>
+    <div class="text" id="name">钟妙柔</div>
+    <div class="text" id="wish">祝你生日快乐！</div>
+    <img src="https://img95.699pic.com/xsj/0t/3k/5i.jpg!/fh/300" id="cake">
+    <!-- 蛋糕图片 -->
+    <div id="candleFlame"></div>
+    <div id="tip">点击屏幕即可熄灭蜡烛</div>
+
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        rose: '#e91e63',
-                        dark: '#121212',
-                        gold: '#ffd700',
-                    },
-                    fontFamily: {
-                        cursive: ['Dancing Script', 'cursive'],
-                    },
+        // 页面加载完成后执行
+        window.onload = function() {
+            // 玫瑰生成函数
+            function createRoses() {
+                const container = document.getElementById('roseContainer');
+                const count = 50; // 玫瑰数量
+                const roseImg = 'https://img2.baidu.com/it/u=3431806495,3568039165&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'; // 玫瑰图片链接
+                
+                for (let i = 0; i < count; i++) {
+                    const rose = document.createElement('div');
+                    rose.className = 'rose';
+                    rose.style.backgroundImage = `url(${roseImg})`;
+                    rose.style.width = `${Math.random() * 60 + 30}px`; // 随机大小
+                    rose.style.height = `${Math.random() * 60 + 30}px`;
+                    rose.style.left = `${Math.random() * 100}%`; // 随机位置
+                    rose.style.top = `${Math.random() * 100}%`;
+                    rose.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    container.appendChild(rose); // 修复此处语法错误
+                    
+                    // 设置随机延迟显示
+                    setTimeout(() => {
+                        rose.style.opacity = Math.random() * 0.7 + 0.3;
+                    }, Math.random() * 3000);
                 }
             }
-        }
+            
+            // 初始化页面元素
+            function initPage() {
+                // 显示名字
+                document.getElementById('name').style.opacity = 1;
+                
+                // 延迟显示祝福语
+                setTimeout(() => {
+                    document.getElementById('wish').style.opacity = 1;
+                }, 1500);
+                
+                // 延迟显示蛋糕
+                setTimeout(() => {
+                    document.getElementById('cake').style.opacity = 1;
+                    
+                    // 延迟显示蜡烛火焰
+                    setTimeout(() => {
+                        document.getElementById('candleFlame').style.opacity = 1;
+                        
+                        // 延迟显示提示文字
+                        setTimeout(() => {
+                            document.getElementById('tip').style.opacity = 1;
+                        }, 1000);
+                    }, 1000);
+                }, 3000);
+                
+                // 生成玫瑰
+                createRoses();
+            }
+            
+            // 添加点击事件 - 熄灭蜡烛
+            document.body.addEventListener('click', function() {
+                document.getElementById('candleFlame').style.opacity = 0;
+                document.getElementById('tip').textContent = "生日快乐！";
+                document.getElementById('tip').style.opacity = 1;
+            });
+            
+            // 初始化页面
+            initPage();
+        };
     </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .text-shadow {
-                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .text-shadow-lg {
-                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
-            }
-            .animate-float {
-                animation: float 6s ease-in-out infinite;
-            }
-            .animate-appear {
-                animation: appear 2s ease-out forwards;
-            }
-            .animate-fade-out {
-                animation: fadeOut 2s ease-in forwards;
-            }
-            .animate-slide-up {
-                animation: slideUp 1.5s ease-out forwards;
-            }
-            .animate-bounce-in {
-                animation: bounceIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            }
-            .animate-pulse-light {
-                animation: pulseLight 2s infinite;
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes appear {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; tra
+</body>
+</html>
