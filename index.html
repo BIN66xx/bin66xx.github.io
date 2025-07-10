@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>钟妙柔的生日祝福</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap">
     <style>
@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -18,7 +19,7 @@
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             height: 100vh;
             font-family: 'Ma Shan Zheng', cursive, sans-serif;
-            cursor: pointer;
+            touch-action: manipulation;
         }
         
         .container {
@@ -35,33 +36,22 @@
         .candle-flame {
             position: absolute;
             top: 35%;
-            width: 25px;
-            height: 40px;
+            width: 20px;
+            height: 35px;
             background: linear-gradient(to top, #ff9d00, #ffeb3b, #ffffff);
             border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 20px #ffeb3b;
+            box-shadow: 0 0 15px #ffeb3b;
             opacity: 1;
             transition: opacity 0.3s, transform 0.3s;
             z-index: 100;
             animation: candleFlicker 0.5s infinite alternate;
         }
         
-        .candle-smoke {
-            position: absolute;
-            top: -10px;
-            width: 10px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            opacity: 0;
-            transition: all 2s ease-out;
-        }
-        
         .cake {
             position: relative;
-            width: 240px;
-            height: 180px;
-            margin-top: 30px;
+            width: 180px;
+            height: 135px;
+            margin-top: 20px;
             transform-style: preserve-3d;
             perspective: 500px;
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -73,9 +63,8 @@
             width: 100%;
             height: 50%;
             background: linear-gradient(to right, #fad1d1, #fff5f5, #fad1d1);
-            border-radius: 20px;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
-            transition: all 0.3s;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
         
         .cake-top {
@@ -84,72 +73,51 @@
             left: 50%;
             transform: translateX(-50%);
             width: 85%;
-            height: 25px;
+            height: 20px;
             background: linear-gradient(to right, #ff85a2, #ffaccb, #ff85a2);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-        }
-        
-        .cream {
-            position: absolute;
-            bottom: 25%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 92%;
-            height: 15px;
-            background: linear-gradient(to right, #ffffff, #ffebee, #ffffff);
-            border-radius: 12px;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
-        }
-        
-        .cherry {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            background: radial-gradient(circle at 30% 30%, #ff0000, #a50000);
-            border-radius: 50%;
-            z-index: 5;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
         
         .message-box {
             position: absolute;
-            top: 15%;
-            width: 85%;
+            top: 10%;
+            width: 90%;
             max-width: 500px;
-            padding: 25px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            box-shadow: 0 10px 35px rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
             text-align: center;
-            transform: translateY(-50px);
+            transform: translateY(-30px);
             opacity: 0;
-            transition: opacity 1s, transform 1s;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: opacity 0.8s, transform 0.8s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 20;
         }
         
         .name {
             color: #ffeb3b;
-            font-size: 42px;
-            margin: 10px 0;
-            text-shadow: 0 0 12px rgba(255, 235, 59, 0.85);
-            letter-spacing: 3px;
+            font-size: 32px;
+            margin: 8px 0;
+            text-shadow: 0 0 8px rgba(255, 235, 59, 0.8);
+            letter-spacing: 2px;
         }
         
         .wish {
             color: #ffffff;
-            font-size: 30px;
-            margin: 15px 0;
-            line-height: 1.5;
+            font-size: 22px;
+            margin: 10px 0;
+            line-height: 1.4;
         }
         
         .floating-text {
             position: absolute;
-            font-size: 26px;
+            font-size: 20px;
             color: #ffffff;
             opacity: 0;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
             z-index: 15;
             font-weight: bold;
             white-space: nowrap;
@@ -158,69 +126,48 @@
         
         .star {
             position: absolute;
-            font-size: 32px;
+            font-size: 24px;
             color: #ffff00;
             opacity: 0;
-            text-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.6);
             z-index: 5;
             pointer-events: none;
         }
         
-        .firework-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .tiktok-element {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 35px solid transparent;
-            border-right: 35px solid transparent;
-            border-bottom: 55px solid #ff00ff;
-            opacity: 0;
-            filter: drop-shadow(0 0 12px rgba(255, 0, 255, 0.8));
-            animation: tiktokFloat 7s linear forwards;
-            z-index: 2;
-        }
-        
         .instruction {
             position: absolute;
-            bottom: 25px;
+            bottom: 15px;
             color: rgba(255, 255, 255, 0.8);
-            font-size: 20px;
+            font-size: 16px;
             text-align: center;
             width: 100%;
             opacity: 1;
             transition: opacity 0.5s;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             z-index: 20;
+            padding: 0 10px;
         }
         
         .music-control {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
+            font-size: 22px;
             color: #fff;
             cursor: pointer;
             z-index: 200;
             opacity: 0;
             transition: all 0.3s;
-            border: 2px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
         }
         
         .music-control:hover {
@@ -229,31 +176,17 @@
         }
         
         @keyframes candleFlicker {
-            0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 20px #ffeb3b; }
-            25% { transform: scale(1.05) rotate(1deg); box-shadow: 0 0 25px #ff9d00; }
+            0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 15px #ffeb3b; }
+            25% { transform: scale(1.05) rotate(1deg); box-shadow: 0 0 20px #ff9d00; }
             50% { transform: scale(0.95) rotate(-1deg); }
-            75% { transform: scale(1.02) rotate(2deg); box-shadow: 0 0 22px #ff9800; }
+            75% { transform: scale(1.02) rotate(2deg); box-shadow: 0 0 18px #ff9800; }
         }
         
         @keyframes floatUp {
             0% { transform: translateY(0) scale(0.8); opacity: 0; }
-            20% { transform: translateY(-30px) scale(1.2); opacity: 1; }
-            80% { transform: translateY(-220px) scale(0.9); opacity: 0.8; }
-            100% { transform: translateY(-300px) scale(0.5); opacity: 0; }
-        }
-        
-        @keyframes tiktokFloat {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; filter: hue-rotate(0deg); }
-            20% { transform: translateY(-120px) rotate(12deg); filter: hue-rotate(90deg); }
-            40% { transform: translateY(-240px) rotate(-8deg); filter: hue-rotate(180deg); }
-            60% { transform: translateY(-360px) rotate(8deg); filter: hue-rotate(270deg); }
-            80% { transform: translateY(-480px) rotate(-12deg); filter: hue-rotate(360deg); }
-            100% { transform: translateY(-600px) rotate(0deg); opacity: 0; }
-        }
-        
-        @keyframes explode {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; }
+            20% { transform: translateY(-20px) scale(1.1); opacity: 1; }
+            80% { transform: translateY(-150px) scale(0.8); opacity: 0.8; }
+            100% { transform: translateY(-200px) scale(0.5); opacity: 0; }
         }
         
         @keyframes rotateCake {
@@ -262,8 +195,39 @@
         }
         
         @keyframes starGlow {
-            0%, 100% { text-shadow: 0 0 15px rgba(255, 255, 0, 0.8); transform: scale(1); }
-            50% { text-shadow: 0 0 25px rgba(255, 255, 200, 1.0), 0 0 40px rgba(255, 255, 255, 0.8); transform: scale(1.2); }
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 0, 0.6); transform: scale(1); }
+            50% { text-shadow: 0 0 18px rgba(255, 255, 200, 0.8); transform: scale(1.1); }
+        }
+        
+        /* 手机适配 */
+        @media (max-width: 480px) {
+            .cake {
+                width: 150px;
+                height: 110px;
+            }
+            
+            .name {
+                font-size: 28px;
+            }
+            
+            .wish {
+                font-size: 18px;
+            }
+            
+            .message-box {
+                padding: 12px;
+                top: 8%;
+            }
+            
+            .music-control {
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+            
+            .instruction {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -281,11 +245,6 @@
         <div class="cake" id="cake">
             <div class="cake-layer"></div>
             <div class="cake-top"></div>
-            <div class="cream"></div>
-            <!-- 樱桃装饰 -->
-            <div class="cherry" style="left: 20%; bottom: 55%;"></div>
-            <div class="cherry" style="left: 50%; bottom: 55%;"></div>
-            <div class="cherry" style="left: 80%; bottom: 55%;"></div>
         </div>
         
         <div class="instruction" id="instruction">点击蛋糕吹灭蜡烛</div>
@@ -306,16 +265,12 @@
             let isPlaying = false;
             let audioSource = null;
             
-            // 更多祝福语
+            // 精简祝福语
             const extraWishes = [
-                "愿你心想事成，美梦成真！",
-                "每一岁都奔走在自己的热爱里",
-                "岁月静好，幸福绵长",
-                "生活像蛋糕一样甜蜜！",
-                "每一天都精彩万分",
-                "快乐永不减，幸福永相伴",
-                "所有美好都如期而至",
-                "成为最好的自己！"
+                "愿你心想事成！",
+                "生活像蛋糕一样甜！",
+                "快乐永不减！",
+                "所有美好都如期而至！"
             ];
             
             // 初始化动画
@@ -326,24 +281,13 @@
                 // 蛋糕入场动画
                 cake.style.transform = 'translateY(0) rotate(-5deg)';
                 
-                // 添加飘动文字
-                createFloatingTexts();
-                
-                // 添加抖音元素
-                createTiktokElements();
-                
-                // 预生成一些闪烁的星星
-                createStars(20);
+                // 预生成一些星星
+                createStars(10);
             }, 500);
             
-            // 创建飘动文字
+            // 创建飘动文字（精简版）
             function createFloatingTexts() {
-                const texts = [
-                    "生日快乐", "青春永驻", "心想事成", 
-                    "天天开心", "永远18岁", "笑口常开",
-                    "甜蜜幸福", "万事如意", "好运连连",
-                    "颜值爆表", "可可爱爱", "闪闪发光"
-                ];
+                const texts = ["生日快乐", "青春永驻", "天天开心", "万事如意"];
                 
                 texts.forEach((text, i) => {
                     setTimeout(() => {
@@ -352,73 +296,36 @@
                         floatingText.textContent = text;
                         floatingText.style.left = `${Math.random() * 80 + 10}%`;
                         floatingText.style.top = `${(Math.random() * 40) + 30}%`;
-                        floatingText.style.fontSize = `${Math.random() * 12 + 24}px`;
+                        floatingText.style.fontSize = `${Math.random() * 10 + 18}px`;
                         floatingText.style.color = getRandomColor();
                         
                         container.appendChild(floatingText);
                         
                         // 动画
                         animateFloatingText(floatingText);
-                    }, i * 500);
+                    }, i * 800);
                 });
             }
             
-            // 动画飘动文字
+            // 动画飘动文字（优化性能）
             function animateFloatingText(element) {
                 const startY = parseInt(element.style.top);
-                const duration = Math.random() * 4 + 6;
-                const xDrift = Math.random() * 100 - 50;
+                const duration = Math.random() * 3 + 4;
+                const xDrift = Math.random() * 60 - 30;
                 
                 element.style.opacity = '1';
                 
-                // 动画参数
-                const animation = element.animate([
-                    { transform: 'translateY(0) translateX(0)', opacity: 1 },
-                    { transform: `translateY(-200px) translateX(${xDrift}px)`, opacity: 0.6 },
-                    { transform: `translateY(-400px) translateX(${xDrift * 2}px)`, opacity: 0 }
-                ], {
-                    duration: duration * 1000,
-                    easing: 'ease-out'
-                });
+                // 使用CSS动画提高性能
+                element.style.animation = `floatUp ${duration}s ease-out forwards`;
+                element.style.setProperty('--x-drift', `${xDrift}px`);
                 
-                animation.onfinish = () => {
+                // 动画结束后移除元素
+                setTimeout(() => {
                     element.remove();
-                    // 删除后创建新的
-                    setTimeout(() => {
-                        createFloatingTexts();
-                    }, 2000);
-                };
+                }, duration * 1000);
             }
             
-            // 创建抖音元素 (三角篝子效果)
-            function createTiktokElements() {
-                for (let i = 0; i < 8; i++) {
-                    setTimeout(() => {
-                        const tiktokElement = document.createElement('div');
-                        tiktokElement.className = 'tiktok-element';
-                        tiktokElement.style.left = `${Math.random() * 100}%`;
-                        tiktokElement.style.top = `${Math.random() * 100}%`;
-                        tiktokElement.style.borderBottom = `55px solid ${getRandomBrightColor()}`;
-                        
-                        container.appendChild(tiktokElement);
-                        
-                        // 触发动画
-                        setTimeout(() => {
-                            tiktokElement.style.opacity = '1';
-                        }, 100);
-                        
-                        // 移除元素
-                        setTimeout(() => {
-                            tiktokElement.remove();
-                        }, 7000);
-                    }, i * 1500);
-                }
-                
-                // 持续创建新元素
-                setTimeout(createTiktokElements, 8000);
-            }
-            
-            // 创建星星效果
+            // 创建星星效果（优化性能）
             function createStars(count) {
                 for (let i = 0; i < count; i++) {
                     const star = document.createElement('div');
@@ -426,24 +333,17 @@
                     star.textContent = '★';
                     star.style.left = `${Math.random() * 100}%`;
                     star.style.top = `${Math.random() * 100}%`;
-                    star.style.fontSize = `${Math.random() * 24 + 24}px`;
-                    star.style.opacity = Math.random() * 0.8 + 0.2;
+                    star.style.fontSize = `${Math.random() * 16 + 16}px`;
+                    star.style.opacity = Math.random() * 0.6 + 0.3;
                     star.style.animation = 'starGlow 2s infinite';
                     container.appendChild(star);
                     
-                    // 让星星闪烁
-                    animateStar(star);
+                    // 让星星闪烁（使用CSS动画）
+                    star.style.animation = 'starGlow 2s infinite';
                 }
             }
             
-            // 星星动画
-            function animateStar(star) {
-                setInterval(() => {
-                    star.style.opacity = Math.random() * 0.7 + 0.3;
-                }, 1500);
-            }
-            
-            // 播放生日快乐歌
+            // 播放生日快乐歌（精简版）
             function playBirthdayMusic() {
                 try {
                     if (!audioCtx) {
@@ -535,23 +435,8 @@
                 // 播放生日快乐歌
                 playBirthdayMusic();
                 
-                // 吹灭蜡烛效果
-                const smoke = document.createElement('div');
-                smoke.className = 'candle-smoke';
-                smoke.style.left = '50%';
-                smoke.style.top = '35%';
-                container.appendChild(smoke);
-                
-                // 烟雾动画
-                setTimeout(() => {
-                    smoke.style.opacity = '1';
-                    smoke.style.transform = 'translateY(-120px) scale(1.2)';
-                    smoke.style.transition = 'all 2.5s ease-out';
-                }, 10);
-                
                 // 隐藏蜡烛
                 candleFlame.style.opacity = '0';
-                candleFlame.style.transform = 'scale(0.5)';
                 candleFlame.style.animation = 'none';
                 
                 // 隐藏提示
@@ -560,89 +445,45 @@
                 // 蛋糕旋转效果
                 cake.style.animation = 'rotateCake 15s linear infinite';
                 
-                // 生成星星雨
-                createStars(80);
+                // 生成星星雨（精简数量）
+                createStars(20);
                 
                 // 显示更多祝福语
                 showExtraWishes();
                 
-                // 创建动感烟花
-                createFireworks();
+                // 创建飘动文字
+                createFloatingTexts();
             });
             
-            // 显示更多祝福语
+            // 显示更多祝福语（精简版）
             function showExtraWishes() {
-                let index = 0;
-                const interval = setInterval(() => {
-                    if (index >= extraWishes.length) {
-                        clearInterval(interval);
-                        return;
-                    }
-                    
-                    const wishElement = document.createElement('div');
-                    wishElement.className = 'wish';
-                    wishElement.textContent = extraWishes[index];
-                    wishElement.style.opacity = '0';
-                    wishElement.style.transition = 'opacity 1s';
-                    
-                    // 添加到消息框
-                    messageBox.appendChild(wishElement);
-                    
-                    // 淡入效果
+                extraWishes.forEach((wish, i) => {
                     setTimeout(() => {
-                        wishElement.style.opacity = '1';
-                    }, 10);
-                    
-                    index++;
-                }, 1000);
-            }
-            
-            // 创建动感烟花
-            function createFireworks() {
-                for (let i = 0; i < 25; i++) {
-                    setTimeout(() => {
-                        // 烟花的爆炸点
-                        const originX = Math.random() * window.innerWidth;
-                        const originY = Math.random() * window.innerHeight / 2;
+                        const wishElement = document.createElement('div');
+                        wishElement.className = 'wish';
+                        wishElement.textContent = wish;
+                        wishElement.style.opacity = '0';
+                        wishElement.style.transition = 'opacity 1s';
                         
-                        // 创建粒子
-                        const particleCount = Math.random() * 20 + 30;
-                        for (let j = 0; j < particleCount; j++) {
-                            const particle = document.createElement('div');
-                            particle.className = 'firework-particle';
-                            particle.style.left = `${originX}px`;
-                            particle.style.top = `${originY}px`;
-                            particle.style.backgroundColor = getRandomBrightColor();
-                            
-                            // 设置粒子的运动方向
-                            const angle = Math.random() * Math.PI * 2;
-                            const velocity = Math.random() * 100 + 50;
-                            const tx = Math.cos(angle) * velocity;
-                            const ty = Math.sin(angle) * velocity;
-                            
-                            particle.style.setProperty('--tx', `${tx}px`);
-                            particle.style.setProperty('--ty', `${ty}px`);
-                            
-                            container.appendChild(particle);
-                            
-                            // 粒子爆炸动画
-                            particle.animate([
-                                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-                                { transform: 'translate(var(--tx), var(--ty)) scale(0.2)', opacity: 0 }
-                            ], {
-                                duration: Math.random() * 1500 + 1000,
-                                easing: 'cubic-bezier(0.165, 0.84, 0.44, 1)'
-                            }).onfinish = () => {
-                                particle.remove();
-                            };
-                        }
-                    }, i * 300);
-                }
+                        // 添加到消息框
+                        messageBox.appendChild(wishElement);
+                        
+                        // 淡入效果
+                        setTimeout(() => {
+                            wishElement.style.opacity = '1';
+                        }, 10);
+                        
+                        // 3秒后淡出
+                        setTimeout(() => {
+                            wishElement.style.opacity = '0';
+                            setTimeout(() => wishElement.remove(), 1000);
+                        }, 3000);
+                    }, i * 1500);
+                });
             }
             
-            // 播放吹气声音
+            // 播放吹气声音（优化性能）
             function playBlowSound() {
-                // 创建吹气声效
                 try {
                     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                     const oscillator = audioCtx.createOscillator();
@@ -650,18 +491,18 @@
                     
                     oscillator.type = 'sine';
                     oscillator.frequency.setValueAtTime(350, audioCtx.currentTime);
-                    oscillator.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.6);
+                    oscillator.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.4);
                     
                     gainNode.gain.setValueAtTime(0.7, audioCtx.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
                     
                     oscillator.connect(gainNode);
                     gainNode.connect(audioCtx.destination);
                     
                     oscillator.start();
-                    oscillator.stop(audioCtx.currentTime + 0.6);
+                    oscillator.stop(audioCtx.currentTime + 0.4);
                 } catch (e) {
-                    console.log('音频播放失败，部分浏览器需要用户交互后允许');
+                    console.log('音频播放失败');
                 }
             }
             
@@ -676,15 +517,17 @@
                 return colors[Math.floor(Math.random() * colors.length)];
             }
             
-            // 获取亮色
-            function getRandomBrightColor() {
-                const colors = [
-                    '#ff0055', '#ff5500', '#ffaa00', '#aaff00',
-                    '#00ffaa', '#00aaff', '#5500ff', '#ff00ff',
-                    '#ff00aa', '#ff8800', '#00ff55', '#5500ff'
-                ];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
+            // 添加CSS动画定义
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatUp {
+                    0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+                    20% { transform: translateY(-30px) translateX(var(--x-drift)) scale(1.2); opacity: 1; }
+                    80% { transform: translateY(-150px) translateX(calc(var(--x-drift)*2)) scale(0.9); opacity: 0.8; }
+                    100% { transform: translateY(-200px) translateX(calc(var(--x-drift)*2)) scale(0.5); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
         };
     </script>
 </body>
