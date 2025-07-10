@@ -4,140 +4,393 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>钟妙柔的生日祝福</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; overflow: hidden; background: #000; height: 100vh; }
-        #roseContainer { position: relative; width: 100%; height: 100%; }
-        .rose { position: absolute; background-size: contain; background-repeat: no-repeat; opacity: 0; }
-        .text { position: absolute; color: #fff; font-size: 48px; opacity: 0; text-align: center; width: 100%; top: 50%; transform: translateY(-50%); font-family: 'Arial Rounded MT Bold', sans-serif; text-shadow: 0 2px 10px rgba(255,255,255,0.3); }
-        #cake { position: absolute; opacity: 0; width: 70%; max-width: 300px; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-        #candleFlame { position: absolute; width: 15px; height: 25px; background: #ff9d00; border-radius: 50% 50% 30% 30%; box-shadow: 0 0 15px #ffeb3b; opacity: 0; }
-        #tip { position: absolute; bottom: 30px; color: #fff; opacity: 0; text-align: center; width: 100%; font-size: 18px; font-family: sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a0636, #360a51, #5a2463);
+            height: 100vh;
+            font-family: 'Ma Shan Zheng', cursive, 'Microsoft YaHei', sans-serif;
+            color: #fff;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+        
+        .center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 800px;
+        }
+        
+        .message-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(191, 63, 191, 0.5);
+            margin-bottom: 30px;
+        }
+        
+        .name {
+            font-size: 4em;
+            margin-bottom: 10px;
+            color: #ff79c6;
+            text-shadow: 0 0 15px rgba(255, 121, 198, 0.8);
+            letter-spacing: 3px;
+        }
+        
+        .wish {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #bd93f9;
+        }
+        
+        .cake-container {
+            position: relative;
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            perspective: 1000px;
+        }
+        
+        .cake {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1.5s;
+        }
+        
+        .cake:hover {
+            transform: rotateY(20deg) rotateX(10deg);
+        }
+        
+        .cake-layer {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff95ca;
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .layer-bottom {
+            width: 200px;
+            height: 60px;
+            background: linear-gradient(to top, #ff95ca, #ff66b8);
+        }
+        
+        .layer-middle {
+            width: 160px;
+            height: 50px;
+            background: linear-gradient(to top, #f7629e, #ff4d9e);
+            bottom: 60px;
+        }
+        
+        .layer-top {
+            width: 120px;
+            height: 40px;
+            background: linear-gradient(to top, #ff3a87, #ff1a75);
+            bottom: 110px;
+        }
+        
+        .candle {
+            position: absolute;
+            width: 10px;
+            height: 50px;
+            background: #fff;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 150px;
+            z-index: 20;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .candle-flame {
+            position: absolute;
+            width: 15px;
+            height: 30px;
+            background: linear-gradient(to bottom, #ff9d00, #ffd900);
+            border-radius: 50% 50% 30% 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 198px;
+            z-index: 21;
+            box-shadow: 0 0 15px #ffeb3b;
+            animation: flicker 1.5s infinite alternate;
+        }
+        
+        .candle:nth-child(1) {
+            left: 40%;
+        }
+        
+        .candle:nth-child(2) {
+            left: 50%;
+        }
+        
+        .candle:nth-child(3) {
+            left: 60%;
+        }
+        
+        .cake-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffd166;
+            bottom: 70px;
+            left: 25%;
+            box-shadow: 
+                80px 0 0 0 #ffd166,
+                40px 20px 0 0 #ffd166,
+                120px 20px 0 0 #ffd166,
+                80px -20px 0 0 #ff6b6b,
+                30px -15px 0 0 #ff6b6b,
+                130px -15px 0 0 #ff6b6b;
+        }
+        
+        .message {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: fireworkLaunch 4s infinite;
+        }
+        
+        .firework:nth-child(1) {
+            background-color: #ff79c6;
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .firework:nth-child(2) {
+            background-color: #8be9fd;
+            top: 10%;
+            left: 70%;
+            animation-delay: 0.8s;
+        }
+        
+        .firework:nth-child(3) {
+            background-color: #bd93f9;
+            top: 80%;
+            left: 30%;
+            animation-delay: 1.6s;
+        }
+        
+        .firework:nth-child(4) {
+            background-color: #ff5555;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2.4s;
+        }
+        
+        @keyframes flicker {
+            0% {
+                transform: translateX(-50%) scale(1, 1);
+                box-shadow: 0 0 15px #ffeb3b;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.1, 0.9);
+                box-shadow: 0 0 20px #ffeb3b;
+            }
+            100% {
+                transform: translateX(-50%) scale(0.9, 1.1);
+                box-shadow: 0 0 15px #ff9d00;
+            }
+        }
+        
+        @keyframes fireworkLaunch {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-100px) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(0);
+                opacity: 0;
+                box-shadow: 
+                    0 -30px 0 -10px #ff79c6,
+                    30px 0 0 -10px #ff5555,
+                    0 30px 0 -10px #8be9fd,
+                    -30px 0 0 -10px #bd93f9,
+                    -20px -20px 0 -10px #ffb86c,
+                    20px -20px 0 -10px #50fa7b,
+                    20px 20px 0 -10px #f1fa8c,
+                    -20px 20px 0 -10px #ff79c6;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="roseContainer"></div>
-    <div class="text" id="name">钟妙柔</div>
-    <div class="text" id="wish">祝你生日快乐！</div>
-    <img src="https://img95.699pic.com/xsj/0t/3k/5i.jpg!/fh/300" id="cake"> <!-- 蛋糕图片 -->
-    <div id="candleFlame"></div>
-    <div id="tip">点击屏幕即可熄灭蜡烛</div>
+    <div class="container">
+        <div class="particles" id="particles"></div>
+        
+        <div class="center-content">
+            <div class="message-box">
+                <div class="name">钟妙柔</div>
+                <div class="wish">祝你生日快乐！</div>
+                
+                <div class="cake-container">
+                    <div class="cake">
+                        <div class="cake-layer layer-bottom"></div>
+                        <div class="cake-layer layer-middle"></div>
+                        <div class="cake-layer layer-top"></div>
+                        <div class="candle"></div>
+                        <div class="candle"></div>
+                        <div class="candle"></div>
+                        <div class="candle-flame"></div>
+                        <div class="cake-decoration"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="message">
+                愿你的每一天都像今天一样充满喜悦与惊喜！<br>
+                愿你的笑容永远灿烂如阳光，愿你的人生甜蜜如蛋糕！<br>
+                钟妙柔，祝你梦想成真，幸福永伴！
+            </div>
+        </div>
+        
+        <div class="fireworks">
+            <div class="firework"></div>
+            <div class="firework"></div>
+            <div class="firework"></div>
+            <div class="firework"></div>
+        </div>
+    </div>
 
     <script>
-        // 玫瑰生成函数
-        function createRoses() {
-            const container = document.getElementById('roseContainer');
-            const count = 50; // 玫瑰数量
-            const roseImg = 'https://img2.baidu.com/it/u=3431806495,3568039165&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'; // 玫瑰图片链接
+        // 创建粒子背景
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 100;
             
-            for (let i = 0; i < count; i++) {
-                const rose = document.createElement('div');
-                rose.className = 'rose';
-                rose.style.backgroundImage = `url(${roseImg})`;
-                rose.style.width = `${Math.random() * 60 + 30}px`; // 随机大小
-                rose.style.height = `${Math.random() * 60 + 30}px`;
-                rose.style.left = `${Math.random() * 100}%`; // 随机位置
-                rose.style.top = `${Math.random() * 100}%`;
-                rose.style.transform = `rotate(${Math.random() * 360}deg)`; // 随机旋转
-                container.appendChild(rose);
-
-                // 玫瑰渐入动画（错开时间显示）
-                setTimeout(() => {
-                    rose.style.transition = 'opacity 1.5s ease';
-                    rose.style.opacity = Math.random() * 0.8 + 0.2; // 随机透明度
-                }, i * 50);
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机位置
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                particle.style.left = `${left}%`;
+                particle.style.top = `${top}%`;
+                
+                // 随机大小和透明度
+                const size = Math.random() * 4 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                // 随机动画
+                const duration = Math.random() * 30 + 10;
+                const delay = Math.random() * 10;
+                particle.style.animation = `moveParticle ${duration}s ${delay}s linear infinite`;
+                
+                // 设置自定义动画
+                document.styleSheets[0].insertRule(
+                    `@keyframes moveParticle {
+                        0% { transform: translate(0, 0); }
+                        100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                    }`, 
+                    document.styleSheets[0].cssRules.length
+                );
+                
+                container.appendChild(particle);
             }
         }
-
-        // 花瓣散开动画
-        function spreadRoses() {
-            const roses = document.querySelectorAll('.rose');
-            roses.forEach((rose, index) => {
-                setTimeout(() => {
-                    rose.style.transition = 'all 2s ease-out';
-                    // 随机方向散开
-                    rose.style.transform = `rotate(${Math.random() * 360}deg) translate(${
-                        (Math.random() - 0.5) * 2000
-                    }px, ${(Math.random() - 0.5) * 2000}px)`;
-                    rose.style.opacity = 0;
-                }, index * 30);
-            });
-        }
-
-        // 显示文字动画
-        function showText() {
-            const name = document.getElementById('name');
-            const wish = document.getElementById('wish');
+        
+        // 页面加载完成后执行
+        window.onload = function() {
+            createParticles();
             
-            setTimeout(() => {
-                // 显示名字
-                name.style.transition = 'opacity 1s ease';
-                name.style.opacity = 1;
+            // 蛋糕交互效果
+            document.querySelector('.cake-container').addEventListener('click', function() {
+                const flames = document.querySelectorAll('.candle-flame');
+                const cake = document.querySelector('.cake');
+                
+                // 熄灭蜡烛动画
+                flames.forEach(flame => {
+                    flame.style.animation = 'none';
+                    flame.style.transition = 'transform 0.5s, opacity 0.5s';
+                    flame.style.transform = 'translateX(-50%) scale(0.3)';
+                    flame.style.opacity = '0';
+                });
+                
+                // 旋转蛋糕
+                cake.style.transform = 'rotateY(360deg) scale(1.1)';
+                cake.style.transition = 'transform 1s';
+                
+                // 重新显示蜡烛火焰
+                setTimeout(() => {
+                    cake.style.transform = 'rotateY(0deg) scale(1)';
+                }, 1000);
                 
                 setTimeout(() => {
-                    // 隐藏名字
-                    name.style.opacity = 0;
-                    setTimeout(() => {
-                        // 显示祝福语
-                        wish.style.transition = 'opacity 1s ease';
-                        wish.style.opacity = 1;
-                        
-                        setTimeout(() => {
-                            // 隐藏祝福语
-                            wish.style.opacity = 0;
-                            showCake(); // 显示蛋糕
-                        }, 2000);
-                    }, 1000);
-                }, 2000);
-            }, 1000);
-        }
-
-        // 显示蛋糕和蜡烛
-        function showCake() {
-            const cake = document.getElementById('cake');
-            const candleFlame = document.getElementById('candleFlame');
-            const tip = document.getElementById('tip');
-            
-            // 定位蜡烛火焰（基于蛋糕位置调整）
-            candleFlame.style.top = 'calc(50% - 130px)';
-            candleFlame.style.left = '50%';
-            candleFlame.style.transform = 'translateX(-50%)';
-            
-            // 显示蛋糕
-            cake.style.transition = 'opacity 1.5s ease';
-            cake.style.opacity = 1;
-            
-            setTimeout(() => {
-                // 显示火焰
-                candleFlame.style.transition = 'opacity 1s ease';
-                candleFlame.style.opacity = 1;
-                
-                // 火焰跳动动画
-                let flameSize = 1;
-                setInterval(() => {
-                    flameSize = Math.random() * 0.2 + 0.9; // 轻微大小变化
-                    candleFlame.style.transform = 'translateX(-50%) scale(' + flameSize + ')';
-                }, 200);
-                
-                // 显示提示文字
-                setTimeout(() => {
-                    tip.style.transition = 'opacity 1s ease';
-                    tip.style.opacity = 1;
-                    
-                    // 点击屏幕熄灭蜡烛
-                    document.addEventListener('click', () => {
-                        candleFlame.style.opacity = 0;
-                        tip.textContent = '生日快乐！愿你每天都闪闪发光～';
+                    flames.forEach(flame => {
+                        flame.style.animation = 'flicker 1.5s infinite alternate';
+                        flame.style.transform = 'translateX(-50%)';
+                        flame.style.opacity = '1';
                     });
-                }, 500);
-            }, 1000);
-        }
-
-        // 执行完整流程
-        createRoses(); // 创建玫瑰
-        setTimeout(() => {
-            spreadRoses(); // 2秒后开始散开玫瑰
-            setTimeout(showText, 2500); // 散开动画后显示文字
-        }, 3000); // 等待玫瑰完全显示
+                }, 3000);
+            });
+        };
     </script>
 </body>
 </html>
