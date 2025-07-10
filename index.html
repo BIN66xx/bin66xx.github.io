@@ -35,7 +35,7 @@
         
         .candle-flame {
             position: absolute;
-            top: 35%;
+            top: 40%; /* 调整蜡烛位置更靠近蛋糕 */
             width: 20px;
             height: 35px;
             background: linear-gradient(to top, #ff9d00, #ffeb3b, #ffffff);
@@ -47,11 +47,17 @@
             animation: candleFlicker 0.5s infinite alternate;
         }
         
-        .cake {
+        .cake-container { /* 新增蛋糕容器统一管理位置 */
             position: relative;
             width: 180px;
             height: 135px;
-            margin-top: 20px;
+            margin-top: 0; /* 移除原margin-top */
+        }
+        
+        .cake {
+            position: relative;
+            width: 100%;
+            height: 100%;
             transform-style: preserve-3d;
             perspective: 500px;
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -183,10 +189,10 @@
         }
         
         @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.8); opacity: 0; }
-            20% { transform: translateY(-20px) scale(1.1); opacity: 1; }
-            80% { transform: translateY(-150px) scale(0.8); opacity: 0.8; }
-            100% { transform: translateY(-200px) scale(0.5); opacity: 0; }
+            0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+            20% { transform: translateY(-30px) translateX(var(--x-drift)) scale(1.2); opacity: 1; }
+            80% { transform: translateY(-150px) translateX(calc(var(--x-drift)*2)) scale(0.9); opacity: 0.8; }
+            100% { transform: translateY(-200px) translateX(calc(var(--x-drift)*2)) scale(0.5); opacity: 0; }
         }
         
         @keyframes rotateCake {
@@ -201,7 +207,7 @@
         
         /* 手机适配 */
         @media (max-width: 480px) {
-            .cake {
+            .cake-container {
                 width: 150px;
                 height: 110px;
             }
@@ -242,16 +248,17 @@
         </div>
         
         <div class="candle-flame" id="candleFlame"></div>
-        <div class="cake" id="cake">
-            <div class="cake-layer"></div>
-            <div class="cake-top"></div>
+        <div class="cake-container"> <!-- 新增蛋糕容器 -->
+            <div class="cake" id="cake">
+                <div class="cake-layer"></div>
+                <div class="cake-top"></div>
+            </div>
         </div>
         
         <div class="instruction" id="instruction">点击蛋糕吹灭蜡烛</div>
     </div>
 
     <script>
-        // 页面加载完成后执行
         window.onload = function() {
             const container = document.querySelector('.container');
             const candleFlame = document.getElementById('candleFlame');
@@ -260,10 +267,10 @@
             const instruction = document.getElementById('instruction');
             const musicControl = document.getElementById('musicControl');
             
-            // 音频上下文对象
+            // 状态管理
+            let isCandleBlown = false; // 蜡烛是否已吹灭
+            let isPlaying = false; // 音乐是否正在播放
             let audioCtx = null;
-            let isPlaying = false;
-            let audioSource = null;
             
             // 精简祝福语
             const extraWishes = [
@@ -285,10 +292,9 @@
                 createStars(10);
             }, 500);
             
-            // 创建飘动文字（精简版）
+            // 创建飘动文字（优化性能）
             function createFloatingTexts() {
                 const texts = ["生日快乐", "青春永驻", "天天开心", "万事如意"];
-                
                 texts.forEach((text, i) => {
                     setTimeout(() => {
                         const floatingText = document.createElement('div');
@@ -301,28 +307,14 @@
                         
                         container.appendChild(floatingText);
                         
-                        // 动画
-                        animateFloatingText(floatingText);
+                        // 使用CSS动画提高性能
+                        floatingText.style.animation = `floatUp ${Math.random() * 3 + 4}s ease-out forwards`;
+                        floatingText.style.setProperty('--x-drift', `${Math.random() * 60 - 30}px`);
+                        
+                        // 动画结束后移除元素
+                        setTimeout(() => floatingText.remove(), (Math.random() * 3 + 4) * 1000);
                     }, i * 800);
                 });
-            }
-            
-            // 动画飘动文字（优化性能）
-            function animateFloatingText(element) {
-                const startY = parseInt(element.style.top);
-                const duration = Math.random() * 3 + 4;
-                const xDrift = Math.random() * 60 - 30;
-                
-                element.style.opacity = '1';
-                
-                // 使用CSS动画提高性能
-                element.style.animation = `floatUp ${duration}s ease-out forwards`;
-                element.style.setProperty('--x-drift', `${xDrift}px`);
-                
-                // 动画结束后移除元素
-                setTimeout(() => {
-                    element.remove();
-                }, duration * 1000);
             }
             
             // 创建星星效果（优化性能）
@@ -337,20 +329,22 @@
                     star.style.opacity = Math.random() * 0.6 + 0.3;
                     star.style.animation = 'starGlow 2s infinite';
                     container.appendChild(star);
-                    
-                    // 让星星闪烁（使用CSS动画）
-                    star.style.animation = 'starGlow 2s infinite';
                 }
             }
             
-            // 播放生日快乐歌（精简版）
+            // 播放生日快乐歌（防重复）
             function playBirthdayMusic() {
+                if (isPlaying) {
+                    audioCtx.suspend();
+                    isPlaying = false;
+                    musicControl.textContent = '♪';
+                }
+                
                 try {
                     if (!audioCtx) {
                         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                     }
                     
-                    // 生日歌旋律频率 (Happy Birthday旋律)
                     const melody = [
                         262, 262, 294, 262, 349, 330,  // Happy birthday to you
                         262, 262, 294, 262, 392, 349, // Happy birthday to you
@@ -358,7 +352,6 @@
                         466, 466, 440, 349, 392, 349  // Happy birthday to you
                     ];
                     
-                    // 时长 (0.4秒一个音符)
                     const durations = [
                         0.3, 0.3, 0.6, 0.6, 0.6, 1.2,
                         0.3, 0.3, 0.6, 0.6, 0.6, 1.2,
@@ -367,122 +360,86 @@
                     ];
                     
                     let time = audioCtx.currentTime;
-                    
                     for (let i = 0; i < melody.length; i++) {
-                        // 创建振荡器
                         const oscillator = audioCtx.createOscillator();
+                        const gainNode = audioCtx.createGain();
+                        
                         oscillator.type = 'sine';
                         oscillator.frequency.value = melody[i];
                         
-                        // 创建增益节点控制音量
-                        const gainNode = audioCtx.createGain();
                         gainNode.gain.setValueAtTime(0.3, time);
                         gainNode.gain.exponentialRampToValueAtTime(0.001, time + durations[i]);
                         
-                        // 连接
                         oscillator.connect(gainNode);
                         gainNode.connect(audioCtx.destination);
                         
-                        // 播放
                         oscillator.start(time);
                         oscillator.stop(time + durations[i]);
                         
-                        // 设置下一个音符开始时间
-                        time += durations[i] - 0.05; // 留一点间隙
+                        time += durations[i] - 0.05;
                     }
                     
                     isPlaying = true;
-                    musicControl.style.opacity = '1';
-                    musicControl.textContent = '❚❚'; // 暂停图标
-                    
+                    musicControl.textContent = '❚❚';
                 } catch (e) {
                     console.log("生日歌播放失败:", e);
                 }
             }
             
-            // 停止音乐
-            function stopMusic() {
-                if (audioCtx) {
-                    audioCtx.suspend();
-                }
-                isPlaying = false;
-                musicControl.textContent = '♪'; // 音乐图标
-            }
-            
-            // 恢复音乐
-            function resumeMusic() {
-                if (audioCtx) {
-                    audioCtx.resume();
-                }
-                isPlaying = true;
-                musicControl.textContent = '❚❚'; // 暂停图标
-            }
-            
             // 点击音乐控制按钮
-            musicControl.addEventListener('click', function() {
+            musicControl.addEventListener('click', () => {
                 if (isPlaying) {
-                    stopMusic();
+                    audioCtx.suspend();
+                    isPlaying = false;
+                    musicControl.textContent = '♪';
                 } else {
-                    resumeMusic();
+                    playBirthdayMusic();
                 }
             });
             
-            // 点击蛋糕吹灭蜡烛
-            cake.addEventListener('click', function() {
-                // 播放吹气声
-                playBlowSound();
+            // 点击蛋糕吹灭蜡烛（防重复）
+            cake.addEventListener('click', () => {
+                if (isCandleBlown) return; // 已吹灭则不再响应
                 
-                // 播放生日快乐歌
+                isCandleBlown = true; // 标记为已吹灭
+                playBlowSound();
                 playBirthdayMusic();
                 
-                // 隐藏蜡烛
+                // 视觉反馈
                 candleFlame.style.opacity = '0';
                 candleFlame.style.animation = 'none';
-                
-                // 隐藏提示
                 instruction.style.opacity = '0';
-                
-                // 蛋糕旋转效果
                 cake.style.animation = 'rotateCake 15s linear infinite';
-                
-                // 生成星星雨（精简数量）
                 createStars(20);
-                
-                // 显示更多祝福语
                 showExtraWishes();
-                
-                // 创建飘动文字
                 createFloatingTexts();
             });
             
-            // 显示更多祝福语（精简版）
+            // 显示额外祝福语（防重复）
             function showExtraWishes() {
+                // 清除之前添加的祝福
+                const existing = messageBox.querySelectorAll('.wish:not(:first-child):not(:nth-child(2))');
+                existing.forEach(wish => wish.remove());
+                
                 extraWishes.forEach((wish, i) => {
                     setTimeout(() => {
-                        const wishElement = document.createElement('div');
-                        wishElement.className = 'wish';
-                        wishElement.textContent = wish;
-                        wishElement.style.opacity = '0';
-                        wishElement.style.transition = 'opacity 1s';
+                        const wishEl = document.createElement('div');
+                        wishEl.className = 'wish';
+                        wishEl.textContent = wish;
+                        wishEl.style.opacity = '0';
+                        wishEl.style.transition = 'opacity 1s';
+                        messageBox.appendChild(wishEl);
                         
-                        // 添加到消息框
-                        messageBox.appendChild(wishElement);
-                        
-                        // 淡入效果
+                        setTimeout(() => wishEl.style.opacity = '1', 10);
                         setTimeout(() => {
-                            wishElement.style.opacity = '1';
-                        }, 10);
-                        
-                        // 3秒后淡出
-                        setTimeout(() => {
-                            wishElement.style.opacity = '0';
-                            setTimeout(() => wishElement.remove(), 1000);
+                            wishEl.style.opacity = '0';
+                            setTimeout(() => wishEl.remove(), 1000);
                         }, 3000);
                     }, i * 1500);
                 });
             }
             
-            // 播放吹气声音（优化性能）
+            // 播放吹气声
             function playBlowSound() {
                 try {
                     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -516,18 +473,6 @@
                 ];
                 return colors[Math.floor(Math.random() * colors.length)];
             }
-            
-            // 添加CSS动画定义
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes floatUp {
-                    0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
-                    20% { transform: translateY(-30px) translateX(var(--x-drift)) scale(1.2); opacity: 1; }
-                    80% { transform: translateY(-150px) translateX(calc(var(--x-drift)*2)) scale(0.9); opacity: 0.8; }
-                    100% { transform: translateY(-200px) translateX(calc(var(--x-drift)*2)) scale(0.5); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
         };
     </script>
 </body>
